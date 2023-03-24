@@ -101,7 +101,9 @@ export default (props = {}) => {
 
               <NavItem title="Formatted Documents" link={Routes.FormattedDocument.path} icon={faChartPie} />
               <NavItem title="Drive" icon={faHandHoldingUsd} link={Routes.GDrive.path} />
-              {/* <NavItem title="My Drive" icon={faCog} link={Routes.MyDrive.path} /> */}
+              <NavItem title="My Drive" icon={faHandHoldingUsd} link={Routes.MyDrive.path} />
+
+              <NavItem title="Azure Document" icon={faCog} link={Routes.InputComponent.path} />
 
               {/* <CollapsableNavItem eventKey="tables/" title="Tables" icon={faTable}>
                 <NavItem title="Bootstrap Table" link={Routes.BootstrapTables.path} />

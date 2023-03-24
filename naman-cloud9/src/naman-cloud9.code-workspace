@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"name": "uploaded",
+			"uri": "azurestorage:/uploaded?resourceId=/subscriptions/b39defea-7206-4d01-bf03-ef02041601b5/resourceGroups/fileuploadstor/providers/Microsoft.Storage/storageAccounts/fileuploadstor/Blob Containers/uploaded"
+		}
+	],
+	"settings": {}
+}

@@ -9,6 +9,11 @@ export const Routes = {
     FormattedDocument: { path: "/FormattedDocument" },
     GDrive: { path: "/GDrive" },
     MyDrive: { path: "/MyDrive" },
+    InputComponent: { path: "/InputComponent" },
+    FormattedDocument1: { path: "/FormattedDocument/success" },
+    GDrive1: { path: "/GDrive/success" },
+
+
 
 
 

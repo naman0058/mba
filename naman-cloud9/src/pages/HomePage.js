@@ -10,6 +10,9 @@ import Transactions from "./Transactions";
 import FormattedDocument from "./FormattedDocument";
 import GDrive from "./GDrive";
 import MyDrive from "./MyDrive"
+import InputComponent from "./InputComponent"
+import FormattedDocument1 from './FormattedDocument1';
+import GDrive1 from './GDrive1';
 
 
 import Settings from "./Settings";
@@ -117,8 +120,14 @@ export default () => (
     <RouteWithSidebar exact path={Routes.Upgrade.path} component={Upgrade} />
     <RouteWithSidebar exact path={Routes.Transactions.path} component={Transactions} />
     <RouteWithSidebar exact path={Routes.FormattedDocument.path} component={FormattedDocument} />
+    <RouteWithSidebar exact path={Routes.FormattedDocument1.path} component={FormattedDocument1} />
+    <RouteWithSidebar exact path={Routes.GDrive1.path} component={GDrive1} />
+
+
     <RouteWithSidebar exact path={Routes.GDrive.path} component={GDrive} />
     <RouteWithSidebar exact path={Routes.MyDrive.path} component={MyDrive} />
+    <RouteWithSidebar exact path={Routes.InputComponent.path} component={InputComponent} />
+
 
 
 
