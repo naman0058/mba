@@ -12,6 +12,8 @@ export const Routes = {
     InputComponent: { path: "/InputComponent" },
     FormattedDocument1: { path: "/FormattedDocument/success" },
     GDrive1: { path: "/GDrive/success" },
+    MyDashboard: { path: "/GDrive/MyDashboard" },
+
 
 
 

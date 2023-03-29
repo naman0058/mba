@@ -11,8 +11,8 @@ var cors = require('cors')
 const fs = require('fs');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3({
-  accessKeyId: 'AKIAU4KLUEYUE5VSVKOF',
-  secretAccessKey: '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'
+  accessKeyId: 'AKIAU4KLUEYUB7TTQXQ2',
+  secretAccessKey: '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'
 });
 
 
@@ -23,9 +23,18 @@ router.post('/insert/image',upload.single('image'), (req, res) => {
   let body = req.body;
   body['image'] = req.file.filename
   console.log('image',req.file.filename)
-  uploadFile(req.file.filename)
-  // res.json({msg:'sucess'})
-  res.redirect('http://localhost:3000/#/FormattedDocument/success')
+ pool.query(`insert into aws_data set ?`,body,(err,result)=>{
+
+  if(err) throw err;
+  else{
+    uploadFile(req.file.filename)
+    // res.json({msg:'sucess'})
+    res.redirect('http://localhost:3000/#/FormattedDocument/success')
+  
+  }
+
+ })
+
 
 
 })
@@ -72,10 +81,35 @@ router.options('/mydrive',cors(),(req,res)=>{
 })
 
 
+router.options('/myaws',cors(),(req,res)=>{
+  // console.log('aaa')
+  pool.query(`select * from aws_data order by id desc`,(err,result)=>{
+    if(err) throw err;
+    else {
+      console.log('reasu',result)
+      res.json(result)
+    }
+  })
+})
+
+
 
 router.get('/mydrive',cors(),(req,res)=>{
   // console.log('aaa')
   pool.query(`select * from gdrive order by id desc`,(err,result)=>{
+    if(err) throw err;
+    else {
+      console.log('reasu',result)
+      res.json(result)
+    }
+  })
+})
+
+
+
+router.get('/myaws',cors(),(req,res)=>{
+  // console.log('aaa')
+  pool.query(`select * from aws_data order by id desc`,(err,result)=>{
     if(err) throw err;
     else {
       console.log('reasu',result)
@@ -142,7 +176,7 @@ const params = {
 };
 
 
-router.get('/get-aws-files',(req,res)=>{
+router.get('/get-aws-files',cors(),(req,res)=>{
   s3.createBucket({
     Bucket: 'namanbucket0058'        /* Put your bucket name */
 }, function () {
@@ -155,28 +189,34 @@ router.get('/get-aws-files',(req,res)=>{
            res.json(err);
         } else {
             console.log("Successfully dowloaded data from  bucket");
-           res.json(data.Body.toString())
+           res.json(data.Body)
         }
     });
 });
 })
 
-const s3download = function (params) {
-  return new Promise((resolve, reject) => {
-      s3.createBucket({
-          Bucket: 'namanbucket0058'        /* Put your bucket name */
-      }, function () {
-          s3.getObject(params, function (err, data) {
-              if (err) {
-                  reject(err);
-              } else {
-                  console.log("Successfully dowloaded data from  bucket");
-                  resolve(data);
-              }
-          });
-      });
-  });
-}
+
+
+router.options('/get-aws-files',cors(),(req,res)=>{
+  s3.createBucket({
+    Bucket: 'namanbucket0058'        /* Put your bucket name */
+}, function () {
+  const params = {
+    Bucket: 'namanbucket0058', // pass your bucket name
+    Key: 'images', // file will be saved as testBucket/contacts.csv 
+  };
+    s3.getObject(params, function (err, data) {
+        if (err) {
+           res.json(err);
+        } else {
+            console.log("Successfully dowloaded data from  bucket");
+           res.json(data)
+        }
+    });
+});
+})
+
+
 
 // uploadFile();
 
@@ -186,5 +226,53 @@ const s3download = function (params) {
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+
+
+
+router.get('/dashboard',cors(),(req,res)=>{
+ 
+  var query = `select count(id) as counter from aws_data;`
+  var query1 = `select count(id) as counter from gdrive;`
+  pool.query(query+query1,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+
+})
+
+router.options('/dashboard',cors(),(req,res)=>{
+ 
+  var query = `select count(id) as counter from aws_data;`
+  var query1 = `select count(id) as counter from gdrive;`
+  pool.query(query+query1,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+
+})
+
+
+
+router.get('/aws-chart',cors(),(req,res)=>{
+ 
+  var query = `select count(a.id) as y , a.date as x from aws_data a group by a.date order by a.date;`
+  pool.query(query,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+
+})
+
+
+router.options('/aws-chart',cors(),(req,res)=>{
+ 
+  var query = `select count(a.id) as y , a.date as x from aws_data a group by a.date order by a.date;`
+
+  pool.query(query,(err,result)=>{
+    if(err) throw err;
+    else res.json(result)
+  })
+
+})
 
 module.exports = router;

@@ -97,11 +97,11 @@ export default (props = {}) => {
               </Nav.Link>
             </div>
             <Nav className="flex-column pt-3 pt-md-0">
-              <NavItem title="Cloud9" image={ReactHero} />
+              <NavItem title="Cloud9" link={Routes.MyDashboard.path} image={ReactHero} />
 
               <NavItem title="Formatted Documents" link={Routes.FormattedDocument.path} icon={faChartPie} />
               <NavItem title="Drive" icon={faHandHoldingUsd} link={Routes.GDrive.path} />
-              <NavItem title="My Drive" icon={faHandHoldingUsd} link={Routes.MyDrive.path} />
+              {/* <NavItem title="My Drive" icon={faHandHoldingUsd} link={Routes.MyDrive.path} /> */}
 
               <NavItem title="Azure Document" icon={faCog} link={Routes.InputComponent.path} />
 

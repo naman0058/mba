@@ -13,6 +13,8 @@ import MyDrive from "./MyDrive"
 import InputComponent from "./InputComponent"
 import FormattedDocument1 from './FormattedDocument1';
 import GDrive1 from './GDrive1';
+import MyDocuments from './MyDocuments';
+import MyDashboard from "./MyDashboard";
 
 
 import Settings from "./Settings";
@@ -122,11 +124,15 @@ export default () => (
     <RouteWithSidebar exact path={Routes.FormattedDocument.path} component={FormattedDocument} />
     <RouteWithSidebar exact path={Routes.FormattedDocument1.path} component={FormattedDocument1} />
     <RouteWithSidebar exact path={Routes.GDrive1.path} component={GDrive1} />
+    <RouteWithSidebar exact path={Routes.MyDashboard.path} component={MyDashboard} />
+
 
 
     <RouteWithSidebar exact path={Routes.GDrive.path} component={GDrive} />
     <RouteWithSidebar exact path={Routes.MyDrive.path} component={MyDrive} />
     <RouteWithSidebar exact path={Routes.InputComponent.path} component={InputComponent} />
+    {/* <RouteWithSidebar exact path={Routes.MyDocuments.path} component={MyDocuments} /> */}
+
 
 
 
