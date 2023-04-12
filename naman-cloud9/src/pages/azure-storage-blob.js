@@ -28,6 +28,36 @@ export const isStorageConfigured = () => {
 };
 // </snippet_isStorageConfigured>
 
+
+
+
+export const deleteBlobIfItExists= async(blobName)=>{
+  alert('hi')
+
+console.log(blobName)
+
+const blobService = new BlobServiceClient(blobName);
+
+  const containerClient =
+  blobService.getContainerClient(containerName);
+
+  // include: Delete the base blob and all of its snapshots.
+  // only: Delete only the blob's snapshots and not the blob itself.
+  const options = {
+    deleteSnapshots: 'include' // or 'only'
+  }
+
+  // Create blob client from container client
+  const blockBlobClient = await containerClient.getBlockBlobClient(blobName);
+
+ await  blockBlobClient.deleteIfExists(options);
+
+  console.log(`deleted blob ${blobName}`);
+
+}
+
+
+
 // <snippet_getBlobsInContainer>
 // return list of blobs in container to display
 export const getBlobsInContainer = async () => {
@@ -50,6 +80,14 @@ export const getBlobsInContainer = async () => {
   return returnedBlobUrls;
 };
 // </snippet_getBlobsInContainer>
+
+
+
+
+
+
+
+
 
 // <snippet_createBlobInContainer>
 const createBlobInContainer = async (file) => {
@@ -74,3 +112,7 @@ const uploadFileToBlob = async (file) => {
 // </snippet_uploadFileToBlob>
 
 export default uploadFileToBlob;
+
+
+
+

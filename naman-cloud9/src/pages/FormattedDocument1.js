@@ -59,6 +59,30 @@ headers: {
 
 }
 
+
+
+delete = (txt) =>{
+  fetch(`http://localhost:4000/myaws/delete?id=${txt}`, {
+    method: 'GET',
+    // mode: 'no-cors',
+headers: {
+'Access-Control-Allow-Origin':'*'
+}
+  })
+  .then((response) => response.json())
+    .catch((error) => console.error('Error', error))
+    .then((result) => {
+  console.log('result',result)
+      if (result.msg == 'success') {
+   this.componentDidMount()
+      }
+      else{
+    alert('An error occured..Plese try again later')
+      }
+    })
+      
+}
+
 render(){
 
 
@@ -146,6 +170,7 @@ render(){
       <Card.Body className="p-0">
 
       <Image src={"http://localhost:4000/images/" + item.image } style={{width:180,textAlign:'center',height:180,objectFit:'contain'}}/>
+      <button className='btn btn-light' style={{width:168,borderRadius:0}} onClick={this.delete.bind(this,item.id)}>Delete</button>
 
 
 </Card.Body>

@@ -11,8 +11,8 @@ var cors = require('cors')
 const fs = require('fs');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3({
-  accessKeyId: 'AKIAU4KLUEYUB7TTQXQ2',
-  secretAccessKey: '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'
+  accessKeyId: 'AKIAXDAFFLS2MHJMGPOE',
+  secretAccessKey: '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'
 });
 
 
@@ -120,6 +120,11 @@ router.get('/myaws',cors(),(req,res)=>{
 
 
 
+
+
+
+
+
 router.options('/check-password',cors(),(req,res)=>{
   console.log('aaa',req.body)
   pool.query(`select * from admin where email = '${req.body.email}' and password = '${req.body.password}'`,(err,result)=>{
@@ -158,7 +163,7 @@ const uploadFile = (fileName) => {
   fs.readFile(`public/images/${fileName}`, (err, data) => {
      if (err) throw err;
      const params = {
-         Bucket: 'namanbucket0058', // pass your bucket name
+         Bucket: 'cloudnines', // pass your bucket name
          Key: 'images', // file will be saved as testBucket/contacts.csv
          Body: JSON.stringify(data, null, 2)
      };
@@ -171,17 +176,17 @@ const uploadFile = (fileName) => {
 
 
 const params = {
-  Bucket: 'namanbucket0058', // pass your bucket name
+  Bucket: 'cloudnines', // pass your bucket name
          Key: 'images', // file will be saved as testBucket/contacts.csv
 };
 
 
 router.get('/get-aws-files',cors(),(req,res)=>{
   s3.createBucket({
-    Bucket: 'namanbucket0058'        /* Put your bucket name */
+    Bucket: 'cloudnines'        /* Put your bucket name */
 }, function () {
   const params = {
-    Bucket: 'namanbucket0058', // pass your bucket name
+    Bucket: 'cloudnines', // pass your bucket name
     Key: 'images', // file will be saved as testBucket/contacts.csv 
   };
     s3.getObject(params, function (err, data) {
@@ -199,10 +204,10 @@ router.get('/get-aws-files',cors(),(req,res)=>{
 
 router.options('/get-aws-files',cors(),(req,res)=>{
   s3.createBucket({
-    Bucket: 'namanbucket0058'        /* Put your bucket name */
+    Bucket: 'cloudnines'        /* Put your bucket name */
 }, function () {
   const params = {
-    Bucket: 'namanbucket0058', // pass your bucket name
+    Bucket: 'cloudnines', // pass your bucket name
     Key: 'images', // file will be saved as testBucket/contacts.csv 
   };
     s3.getObject(params, function (err, data) {
@@ -273,6 +278,72 @@ router.options('/aws-chart',cors(),(req,res)=>{
     else res.json(result)
   })
 
+})
+
+
+
+
+
+
+
+
+
+
+
+
+router.get('/myaws/delete',cors(),(req,res)=>{
+  // console.log('aaa')
+  pool.query(`delete from aws_data where id = '${req.query.id}'`,(err,result)=>{
+    if(err) throw err;
+    else {
+      console.log('reasu',result)
+      res.json({msg:'success'})
+    }
+  })
+})
+
+
+router.options('/myaws/delete',cors(),(req,res)=>{
+  // console.log('aaa')
+  pool.query(`delete from aws_data where id = '${req.query.id}'`,(err,result)=>{
+
+    if(err) throw err;
+    else {
+      console.log('reasu',result)
+      res.json({msg:'success'})
+
+    }
+  })
+})
+
+
+
+router.get('/mydrive/delete',cors(),(req,res)=>{
+  // console.log('aaa')
+  pool.query(`delete from gdrive where id = '${req.query.id}'`,(err,result)=>{
+
+    if(err) throw err;
+    else {
+      console.log('reasu',result)
+      res.json({msg:'success'})
+
+    }
+  })
+})
+
+
+
+
+router.options('/mydrive/delete',cors(),(req,res)=>{
+  // console.log('aaa')
+  pool.query(`delete from gdrive where id = '${req.query.id}'`,(err,result)=>{
+    if(err) throw err;
+    else {
+      console.log('reasu',result)
+      res.json({msg:'success'})
+
+    }
+  })
 })
 
 module.exports = router;
